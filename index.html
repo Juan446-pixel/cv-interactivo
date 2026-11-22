@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Álvarez Núñez | Currículum Interactivo & Asistente IA</title>
+  <meta name="description" content="Currículum interactivo y portafolio profesional de Juan Álvarez Núñez. Artificial Intelligence Analyst en Deloitte, graduado en International Business y estudiante de Data Science.">
+  <meta name="author" content="Juan Álvarez Núñez">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #090d16;
+      --bg-surface: #0f172a;
+      --bg-surface-elevated: #1e293b;
+      --bg-surface-glass: rgba(15, 23, 42, 0.75);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(99, 102, 241, 0.6);
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent-primary: #3b82f6;
+      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      
+      --badge-bg: rgba(59, 130, 246, 0.12);
+      --badge-text: #60a5fa;
+      --badge-border: rgba(96, 165, 250, 0.25);
+      
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.6);
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(99, 102, 241, 0.07) 0%, transparent 45%);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-main);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: var(--radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Navigation */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: var(--transition);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav.nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav.nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav.nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--accent-gradient);
+      color: #fff !important;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px var(--accent-glow);
+      transition: var(--transition);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    /* Top Center Welcome Video Section */
+    .welcome-video-section {
+      padding: 40px 0 10px 0;
+      position: relative;
+    }
+
+    .welcome-video-card {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .welcome-video-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(var(--radius-lg) + 1px);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .welcome-video-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .welcome-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pulsing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+      animation: pulse-dot 1.8s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .welcome-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .welcome-player-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .welcome-player-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .welcome-video-frame {
+      position: relative;
+      background: #020617;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .audio-notice {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      z-index: 5;
+    }
+
+    .btn-unmute {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-unmute:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .welcome-transcript-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .transcript-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .transcript-body {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .transcript-body p strong {
+      color: var(--text-primary);
+    }
+
+    /* Hero Section */
+    section.hero {
+      padding: 70px 0 50px 0;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    h1.hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    p.hero-summary {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #fff;
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: #27354a;
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Contact Links Strip */
+    .contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .contact-pill:hover {
+      color: var(--text-primary);
+    }
+
+    .contact-pill svg {
+      width: 17px;
+      height: 17px;
+      stroke-width: 2;
+      color: var(--accent-primary);
+    }
+
+    /* Hero Card (Executive Summary) */
+    .hero-card {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(var(--radius-lg) + 1px);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .profile-header-preview {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .avatar-large {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 10px 25px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    .metric-box .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-box .val {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-header {
+      margin-bottom: 38px;
+    }
+
+    .section-eyebrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-top: 6px;
+      max-width: 650px;
+    }
+
+    /* Video Cards Section (Requisito 2) */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .video-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+    }
+
+    .video-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      background: #020617;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #050811;
+    }
+
+    .video-file-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #38bdf8;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .video-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .video-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+    }
+
+    .video-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .video-description {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0;
+      flex-grow: 1;
+    }
+
+    /* Interactive AI Chat Section (Requisitos 3, 4, 5, 6) */
+    .chat-section-container {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(9, 13, 22, 0.95) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    /* API Key Config Panel (Requisito 4) */
+    .api-config-bar {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: var(--transition);
+    }
+
+    .api-config-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .api-config-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .api-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .api-status-badge.active {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .api-config-inputs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .input-wrapper {
+      position: relative;
+      flex-grow: 1;
+      min-width: 260px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 42px 10px 14px;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .toggle-visibility-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .toggle-visibility-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .api-config-help {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .api-config-help a {
+      color: var(--badge-text);
+      text-decoration: underline;
+    }
+
+    /* Chat Area */
+    .chat-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: #090d16;
+      display: flex;
+      flex-direction: column;
+      height: 540px;
+      overflow: hidden;
+    }
+
+    .chat-messages {
+      flex-grow: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .message-row {
+      display: flex;
+      gap: 14px;
+      max-width: 85%;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-row.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .message-row.bot {
+      align-self: flex-start;
+    }
+
+    .chat-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .bot .chat-avatar {
+      background: var(--accent-gradient);
+      color: #fff;
+    }
+
+    .user .chat-avatar {
+      background: #334155;
+      color: var(--text-primary);
+    }
+
+    .message-content {
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .bot .message-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      border-top-left-radius: 4px;
+    }
+
+    .user .message-content {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-top-right-radius: 4px;
+    }
+
+    .message-content p {
+      margin-bottom: 8px;
+    }
+    .message-content p:last-child {
+      margin-bottom: 0;
+    }
+    .message-content ul, .message-content ol {
+      margin: 8px 0 8px 20px;
+    }
+    .message-content li {
+      margin-bottom: 4px;
+    }
+    .message-content strong {
+      color: #fff;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px;
+    }
+
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      animation: pulse 1.4s infinite ease-in-out both;
+    }
+
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Error Alert Component (Requisito 6) */
+    .chat-alert-error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      color: #fca5a5;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-self: flex-start;
+      max-width: 90%;
+    }
+
+    .chat-alert-error .error-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #f87171;
+    }
+
+    .chat-alert-error button {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 6px 14px;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fff;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .chat-alert-error button:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+
+    /* Suggestion Chips */
+    .chat-suggestions {
+      padding: 12px 20px;
+      background: rgba(15, 23, 42, 0.5);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .suggestion-chip {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .suggestion-chip:hover {
+      background: #2b394f;
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+    }
+
+    /* Chat Input Bar */
+    .chat-input-bar {
+      padding: 16px 20px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .chat-input-bar input {
+      flex-grow: 1;
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .chat-input-bar input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .chat-send-btn {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .chat-send-btn:hover:not(:disabled) {
+      box-shadow: 0 4px 15px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .chat-send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Experience & Projects Grid */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .exp-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: var(--transition);
+    }
+
+    .exp-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exp-role {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .exp-company {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    .exp-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+    }
+
+    .exp-details {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .exp-details ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .exp-details li {
+      margin-bottom: 6px;
+    }
+
+    /* Skills Badges */
+    .skills-category {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .skills-category h4 {
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .pill.highlight {
+      background: var(--badge-bg);
+      border-color: var(--badge-border);
+      color: var(--badge-text);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer.site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0;
+      background: #060911;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      h1.hero-title {
+        font-size: 2.3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav.nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .chat-box {
+        height: 480px;
+      }
+      .chat-section-container {
+        padding: 20px 14px;
+      }
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand">
+        <div class="brand-avatar">JA</div>
+        <div class="brand-info">
+          <span class="brand-name">Juan Álvarez Núñez</span>
+          <span class="brand-tag">AI Analyst & Data Science</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#bienvenida">Bienvenida</a>
+        <a href="#perfil">Perfil</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#experiencia">Trayectoria</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#asistente-ia" class="nav-cta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+          Asistente IA
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Top Center Welcome Video Section -->
+  <section id="bienvenida" class="welcome-video-section">
+    <div class="container">
+      <div class="welcome-video-card">
+        <div class="welcome-video-header">
+          <div class="welcome-pill">
+            <span class="pulsing-dot"></span>
+            Vídeo de Bienvenida · Avatar Interactivo
+          </div>
+          <h2 class="welcome-title">Bienvenido a mi Currículum Interactivo</h2>
+        </div>
+
+        <div class="welcome-player-layout">
+          <div class="welcome-video-frame">
+            <video id="avatarVideo" controls autoplay muted playsinline loop preload="auto" poster="">
+              <source src="videos/bienvenida.mp4" type="video/mp4">
+              <source src="bienvenida.mp4" type="video/mp4">
+              <source src="videos/avatar.mp4" type="video/mp4">
+              <source src="avatar.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+            <div class="audio-notice">
+              <button type="button" class="btn-unmute" id="unmuteBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span>Activar sonido</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="welcome-transcript-card">
+            <div class="transcript-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>Mensaje del Avatar:</span>
+            </div>
+            <div class="transcript-body">
+              <p>“¡Hola! Soy <strong>Juan Álvarez</strong>, graduado en International Business por ESIC y Grenoble École de Management, y actualmente estudiante de Data Science.</p>
+              <p>Trabajo como analista de Inteligencia Artificial en <strong>Deloitte</strong> y tengo experiencia en proyectos de Data Science y consultoría tecnológica.”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Section -->
+  <section id="perfil" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="status-dot"></span>
+            Artificial Intelligence Analyst I en Deloitte
+          </div>
+          <h1 class="hero-title">
+            Hola, soy <span class="gradient-text">Juan Álvarez</span>
+          </h1>
+          <p class="hero-subtitle">
+            Artificial Intelligence Analyst I en Deloitte | Graduado en International Business | Estudiante de Data Science
+          </p>
+          <p class="hero-summary">
+            Doble graduado en International Business por ESIC University y Grenoble École de Management, y estudiante de 5.º curso de Data Science en ESIC. Especializado en análisis de datos, automatización de procesos ETL, dashboards en Power BI e integración de modelos de Machine Learning e Inteligencia Artificial aplicados al impacto de negocio.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#asistente-ia" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Consultar Asistente IA
+            </a>
+            <a href="#videos" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Ver Videopresentaciones
+            </a>
+          </div>
+
+          <!-- Contact Links -->
+          <div class="contact-strip">
+            <a href="https://www.linkedin.com/in/juan-%C3%A1lvarez-n%C3%BA%C3%B1ez-9917112ab" target="_blank" rel="noopener noreferrer" class="contact-pill" title="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              LinkedIn
+            </a>
+            <a href="https://github.com/Juan446-pixel" target="_blank" rel="noopener noreferrer" class="contact-pill" title="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+            <a href="mailto:juanalvareznunez@gmail.com" class="contact-pill" title="Correo Electrónico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              juanalvareznunez@gmail.com
+            </a>
+            <a href="tel:+34684022637" class="contact-pill" title="Teléfono">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              +34 684 02 26 37
+            </a>
+            <span class="contact-pill" title="Ubicación">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              Las Rozas de Madrid, España
+            </span>
+          </div>
+        </div>
+
+        <!-- Executive Card Preview -->
+        <div class="hero-card">
+          <div class="profile-header-preview">
+            <div class="avatar-large">JA</div>
+            <div>
+              <h3 style="font-size: 1.2rem; font-weight: 700;">Juan Álvarez Núñez</h3>
+              <p style="font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Deloitte | AI Analyst I</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">ESIC University & Grenoble École de Management</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55;">
+            "Combinación sinérgica de visión global de negocio con competencias técnicas en Inteligencia Artificial, Data Science y analítica avanzada."
+          </p>
+
+          <div class="metric-row">
+            <div class="metric-box">
+              <div class="label">Idiomas</div>
+              <div class="val">Inglés C2 · FR C1</div>
+            </div>
+            <div class="metric-box">
+              <div class="label">Premios</div>
+              <div class="val">2x Excelencia ESIC</div>
+            </div>
+            <div class="metric-box">
+              <div class="label">Stack Principal</div>
+              <div class="val">Python · Power BI · SQL</div>
+            </div>
+            <div class="metric-box">
+              <div class="label">IA & LLMs</div>
+              <div class="val">Gemini · Claude · Azure</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section (Requisito 2: 3 Tarjetas de Vídeo para archivos locales .mp4) -->
+  <section id="videos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Multimedia & Presentaciones</div>
+        <h2 class="section-title">Videopresentaciones</h2>
+        <p class="section-desc">
+          Conoce en profundidad mi perfil, mi metodología de trabajo en proyectos de datos y mis capacidades técnicas a través de estos 3 vídeos breves.
+        </p>
+      </div>
+
+      <div class="video-grid">
+        <!-- Video 1: pitch.mp4 -->
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video controls preload="metadata">
+              <source src="videos/pitch.mp4" type="video/mp4">
+              <source src="pitch.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+          </div>
+          <div class="video-body">
+            <span class="video-badge">Presentación Ejecutiva</span>
+            <h3 class="video-title">Elevator Pitch</h3>
+            <p class="video-description">
+              Síntesis sobre mi perfil profesional, mi visión estratégica uniendo International Business con Data Science y el valor aportado en consultoría de Inteligencia Artificial.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 2: proyecto.mp4 -->
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video controls preload="metadata">
+              <source src="videos/proyecto.mp4" type="video/mp4">
+              <source src="proyecto.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+          </div>
+          <div class="video-body">
+            <span class="video-badge">Caso de Estudio</span>
+            <h3 class="video-title">Demostración de Proyecto</h3>
+            <p class="video-description">
+              Recorrido práctico por la construcción de pipelines ETL, extracción de datos vía APIs y DBeaver, modelado en Power Query y dashboards analíticos en Power BI.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 3: habilidades.mp4 -->
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video controls preload="metadata">
+              <source src="videos/habilidades.mp4" type="video/mp4">
+              <source src="habilidades.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+          </div>
+          <div class="video-body">
+            <span class="video-badge">Stack Técnico + Soft Skills</span>
+            <h3 class="video-title">Habilidades Técnicas & Soft Skills</h3>
+            <p class="video-description">
+              Exposición de mis competencias técnicas en Python, SQL, Machine Learning y herramientas de IA aplicada. Además, haber estudiado en España, Francia y Canadá me ha permitido desenvolverme en entornos internacionales; soy bilingüe en inglés y tengo un nivel C1 de francés.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive AI Chat Section (Requisitos 3, 4, 5, 6) -->
+  <section id="asistente-ia">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Inteligencia Artificial Conversacional</div>
+        <h2 class="section-title">Asistente Virtual de Juan</h2>
+        <p class="section-desc">
+          Interactúa con mi gemelo digital impulsado por Google Gemini. Responde preguntas sobre mi experiencia profesional, educación, proyectos reales y competencias de forma instantánea.
+        </p>
+      </div>
+
+      <div class="chat-section-container">
+        
+        <!-- API Configuration Panel (Requisito 4) -->
+        <div class="api-config-bar">
+          <div class="api-config-header">
+            <div class="api-config-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Configuración de Google Gemini API Key</span>
+            </div>
+            <div id="apiStatusBadge" class="api-status-badge">
+              <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:currentColor;"></span>
+              <span id="apiStatusText">Clave no configurada</span>
+            </div>
+          </div>
+
+          <div class="api-config-inputs">
+            <div class="input-wrapper">
+              <input type="password" id="apiKeyInput" placeholder="Ingresa tu clave: AIzaSy..." autocomplete="off">
+              <button type="button" class="toggle-visibility-btn" id="toggleApiKeyBtn" title="Mostrar/Ocultar clave">
+                <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+            <button type="button" id="saveApiKeyBtn" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.88rem;">
+              Guardar Clave
+            </button>
+            <button type="button" id="clearApiKeyBtn" class="btn btn-secondary" style="padding: 10px 16px; font-size: 0.88rem; display:none;">
+              Borrar
+            </button>
+          </div>
+
+          <div class="api-config-help">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>
+              Tu clave se almacena exclusivamente en el <code>localStorage</code> de tu navegador y nunca viaja a ningún servidor intermediario. 
+              Puedes obtener una clave gratuita en <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+            </span>
+          </div>
+        </div>
+
+        <!-- Chat Container Box -->
+        <div class="chat-box">
+          
+          <!-- Message history -->
+          <div class="chat-messages" id="chatMessages">
+            <div class="message-row bot">
+              <div class="chat-avatar">JA</div>
+              <div class="message-content">
+                <p><strong>¡Hola! Soy el asistente virtual de Juan Álvarez Núñez.</strong></p>
+                <p>Estoy entrenado rigurosamente con su trayectoria oficial en <strong>Deloitte</strong>, <strong>Webtools</strong> y <strong>h&k</strong>, su formación en <strong>International Business</strong> y <strong>Data Science</strong>, sus certificaciones y proyectos reales.</p>
+                <p>¿Qué te gustaría conocer sobre su perfil?</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggested Quick Prompts -->
+          <div class="chat-suggestions">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight:600; text-transform:uppercase;">Sugerencias:</span>
+            <button class="suggestion-chip" onclick="askSuggestion('¿Cuál es la trayectoria profesional de Juan en Deloitte y Webtools?')">Trayectoria laboral</button>
+            <button class="suggestion-chip" onclick="askSuggestion('¿Qué tecnologías, lenguajes de programación y herramientas de IA domina?')">Stack y herramientas IA</button>
+            <button class="suggestion-chip" onclick="askSuggestion('Cuéntame sobre su proyecto de recomendación y ranking de canciones')">Proyecto de canciones</button>
+            <button class="suggestion-chip" onclick="askSuggestion('¿Cuál es su formación académica, dobles grados e idiomas?')">Estudios e idiomas</button>
+            <button class="suggestion-chip" onclick="askSuggestion('¿Cuáles son sus certificaciones de Azure, Python y ciberseguridad?')">Certificaciones</button>
+          </div>
+
+          <!-- Input bar -->
+          <form id="chatForm" class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Haz una pregunta sobre mi experiencia, proyectos o habilidades..." autocomplete="off">
+            <button type="submit" id="sendMessageBtn" class="chat-send-btn">
+              <span>Enviar</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Section -->
+  <section id="experiencia">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Trayectoria</div>
+        <h2 class="section-title">Experiencia Profesional</h2>
+        <p class="section-desc">Experiencia contrastada en consultoría estratégica de Inteligencia Artificial, análisis de datos y desarrollo de negocio.</p>
+      </div>
+
+      <div class="experience-list">
+        
+        <!-- Deloitte -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Artificial Intelligence Analyst I</div>
+              <div class="exp-company">Deloitte</div>
+            </div>
+            <span class="exp-period">Nov 2026 – Presente</span>
+          </div>
+          <div class="exp-details">
+            <p>Incorporación como analista en el área de Inteligencia Artificial de Deloitte, aplicando metodologías de vanguardia en datos e IA orientadas a soluciones empresariales.</p>
+          </div>
+        </div>
+
+        <!-- Webtools -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Becario de Análisis de Datos (Data Analyst Intern)</div>
+              <div class="exp-company">Webtools (Webtools, S.L.)</div>
+            </div>
+            <span class="exp-period">Mar 2026 – Sep 2026</span>
+          </div>
+          <div class="exp-details">
+            <ul>
+              <li>Construcción de dashboards de Power BI desde cero para múltiples clientes de la compañía.</li>
+              <li>Construcción y automatización de flujos de trabajo ETL mediante Power Query, SQL y Claude Code.</li>
+              <li>Integración de información de múltiples APIs para respaldar la toma de decisiones basada en datos.</li>
+              <li>Colaboración activa en el soporte y diseño de modelos predictivos y de Machine Learning.</li>
+              <li>Realización de encuestas de satisfacción a invitados en los palcos VIP del Real Madrid los días de partido.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- h&k -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Becario de Go-to-Market</div>
+              <div class="exp-company">h&k (HSI KITERIS S.L.)</div>
+            </div>
+            <span class="exp-period">Oct 2025 – Feb 2026</span>
+          </div>
+          <div class="exp-details">
+            <ul>
+              <li>Análisis competitivo exhaustivo en IA, Servicios de Gestión de Aplicaciones, Datos, Ciberseguridad y Power Platform (evaluando entre 10 y 15 competidores por estudio).</li>
+              <li>Participación en la formulación de propuestas de valor y definición de servicios junto al Director de Go-to-Market y líderes de solución de 4 líneas de servicio.</li>
+              <li>Apoyo directo al equipo de SDR en reuniones con clientes para campaña de incentivos de Microsoft Azure, identificando puntos de dolor con apoyo de IA.</li>
+              <li>Traducción de estrategia comercial en documentación operativa y gestión y enriquecimiento del CRM corporativo.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="proyectos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Casos Reales</div>
+        <h2 class="section-title">Proyectos Destacados</h2>
+        <p class="section-desc">Iniciativas prácticas que articulan extracción de datos, modelado analítico y machine learning.</p>
+      </div>
+
+      <div class="experience-list">
+        
+        <!-- Proyecto 1: Power BI -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Dashboard de Power BI & Pipeline ETL para Cliente</div>
+              <div class="exp-company">Webtools · Proyecto Profesional</div>
+            </div>
+            <span class="exp-period">Power BI · Power Query · DBeaver · SQL</span>
+          </div>
+          <div class="exp-details">
+            <p><strong>Reto y Solución:</strong> Construcción integral desde cero de una solución analítica para facilitar la toma de decisiones del cliente.</p>
+            <p>Desarrollo de un pipeline ETL completo: extracción de datos crudos mediante DBeaver, limpieza, normalización y transformación de esquemas en Power Query, y estructuración de modelos de datos visuales en Power BI (Report View) que simplifican el análisis operativo.</p>
+          </div>
+        </div>
+
+        <!-- Proyecto 2: Music Recommendation -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Sistema Universitario de Recomendación y Ranking Musical</div>
+              <div class="exp-company">ESIC University · Proyecto Data Science</div>
+            </div>
+            <span class="exp-period">Python · scikit-learn · FastAPI · pandas</span>
+          </div>
+          <div class="exp-details">
+            <p><strong>Reto y Solución:</strong> Recuperación de información, recomendación algorítmica y ordenación predictiva a partir de conjuntos de datos musicales.</p>
+            <p>Construcción de un algoritmo de recomendación y modelo predictivo para rankear canciones. Desarrollado en Visual Studio Code con asistencia de OpenAI Codex, implementado en Python empleando NumPy, pandas, scikit-learn, Matplotlib para exploración y FastAPI para la exposición de endpoints.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills, Education & Certifications -->
+  <section id="habilidades">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Competencias & Background</div>
+        <h2 class="section-title">Habilidades & Formación</h2>
+      </div>
+
+      <div class="skills-category">
+        <h4>Habilidades Técnicas & Herramientas de IA</h4>
+        <div class="pill-group">
+          <span class="pill highlight">Python</span>
+          <span class="pill highlight">Power BI</span>
+          <span class="pill highlight">SQL</span>
+          <span class="pill highlight">R</span>
+          <span class="pill">scikit-learn</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">Power Query</span>
+          <span class="pill">pandas</span>
+          <span class="pill">NumPy</span>
+          <span class="pill">ETL & Limpieza de Datos</span>
+          <span class="pill">DBeaver</span>
+          <span class="pill">PostgreSQL & MySQL</span>
+          <span class="pill">Claude Code</span>
+          <span class="pill">Google Gemini</span>
+          <span class="pill">Microsoft Azure</span>
+          <span class="pill">Java (Básico)</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        
+        <!-- Educación -->
+        <div class="skills-category">
+          <h4>Educación & Doble Grado</h4>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:14px; font-size:0.9rem; color:var(--text-secondary);">
+            <li>
+              <strong style="color:var(--text-primary); display:block;">ESIC University</strong>
+              Grado en International Business (2022 - 2026)
+            </li>
+            <li>
+              <strong style="color:var(--text-primary); display:block;">Grenoble École de Management (Francia)</strong>
+              Grado en International Business (Doble titulación independiente, 2022 - 2026)
+            </li>
+            <li>
+              <strong style="color:var(--text-primary); display:block;">ESIC University</strong>
+              Diploma Universitario en Data Science (5.º curso, 2022 - 2027 prevista)
+            </li>
+            <li>
+              <strong style="color:var(--text-primary); display:block;">Logos International School</strong>
+              Bachillerato Internacional (IB) con Matemáticas y Física Nivel Superior (2020 - 2022)
+            </li>
+            <li>
+              <strong style="color:var(--text-primary); display:block;">Stelly’s Secondary School (Canadá)</strong>
+              4.º de ESO (2019 - 2020)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Certificaciones y Premios -->
+        <div class="skills-category">
+          <h4>Certificaciones & Honores</h4>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:0.9rem; color:var(--text-secondary);">
+            <li>🏆 <strong>Premio a la Excelencia Académica ESIC</strong> (Cursos 2023-24 y 2024-25)</li>
+            <li>🎖️ <strong>Cambridge Certificate of Proficiency in English (C2)</strong></li>
+            <li>📜 <strong>Microsoft Certified:</strong> Azure AI Fundamentals & Azure Fundamentals</li>
+            <li>📜 <strong>Python for Data Science & Machine Learning Bootcamp</strong> (Udemy)</li>
+            <li>📜 <strong>The Complete SQL Bootcamp</strong> (Udemy)</li>
+            <li>📜 <strong>PMI Project Management Ready™</strong> (Project Management Institute)</li>
+            <li>📜 <strong>Cybersecurity Fundamentals</strong> (Cisco / Continuing Education)</li>
+            <li>📜 <strong>Power BI</strong> (ESIC University)</li>
+            <li>⏳ <em>Machine Learning Specialization</em> (Coursera - En curso)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/juan-%C3%A1lvarez-n%C3%BA%C3%B1ez-9917112ab" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/Juan446-pixel" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:juanalvareznunez@gmail.com">Contacto</a>
+        <a href="#perfil">Volver arriba</a>
+      </div>
+      <p>© 2026 Juan Álvarez Núñez. Portafolio y Asistente IA profesional. Listo para GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT & GEMINI API INTEGRATION -->
+  <script>
+    /* ==========================================================================
+       1. SYSTEM INSTRUCTION DEL ASISTENTE VIRTUAL (PERFIL JUAN ÁLVAREZ NÚÑEZ)
+       ========================================================================== */
+    const SYSTEM_INSTRUCTION = `
+Eres el asistente virtual interactivo oficial y gemelo digital de Juan Álvarez Núñez. Tu misión es responder a reclutadores, líderes de equipo, clientes y visitantes interesados en su perfil profesional.
+
+NORMAS DE ORO Y REGLAS ESTRICTAS DE COMPORTAMIENTO:
+1. IDENTIDAD Y TONO: Responde en primera persona actuando como Juan Álvarez Núñez (o como su asistente acreditado cuando la pregunta sea en tercera persona). Comunícate de manera profesional, clara, directa, educada y natural.
+2. RIGOR Y VERACIDAD ABSOLUTA: Limítate rigurosa y exclusivamente a los hechos y datos verificados provistos en este contexto. Si te preguntan sobre un tema, proyecto, métrica, empresa o competencia que no conste en la información, admite honestamente que no dispones de ese dato o que no está documentado, en lugar de especular o inventarlo.
+3. SITUACIÓN LABORAL ACTUAL: Juan trabaja actualmente en Deloitte como "Artificial Intelligence Analyst I" (desde noviembre de 2026). Por tanto, no asumas disponibilidad inmediata ni búsqueda activa de empleo sin confirmación previa.
+4. PROYECTOS EN DELOITTE: Es una incorporación reciente (noviembre 2026). No debes inventar ni atribuirle proyectos, clientes o responsabilidades específicas dentro de Deloitte que no hayan sido documentadas explícitamente.
+5. DISTINCIÓN DE EXPERIENCIAS: Diferencia siempre claramente la experiencia laboral profesional en empresas (Deloitte, Webtools, h&k) de los proyectos académicos y universitarios (ESIC University).
+
+DATOS BIOGRÁFICOS Y DE CONTACTO:
+- Nombre: Juan Álvarez Núñez
+- Titular: Artificial Intelligence Analyst I en Deloitte | Graduado en International Business | Estudiante de Data Science
+- Ubicación: Las Rozas de Madrid, Madrid, España
+- Email: juanalvareznunez@gmail.com
+- Teléfono: +34 684 02 26 37
+- LinkedIn: https://www.linkedin.com/in/juan-%C3%A1lvarez-n%C3%BA%C3%B1ez-9917112ab
+- GitHub: https://github.com/Juan446-pixel
+
+EXPERIENCIA LABORAL:
+1. Deloitte (Noviembre 2026 - Presente):
+   - Puesto: Artificial Intelligence Analyst I.
+   - Enfoque: Analítica e Inteligencia Artificial en entornos de consultoría estratégica y de negocio.
+
+2. Webtools (Webtools, S.L.) (Marzo 2026 - Septiembre 2026):
+   - Puesto: Becario de Análisis de Datos (Data Analyst Intern).
+   - Logros y tareas:
+     * Construcción integral de dashboards de Power BI desde cero para múltiples clientes.
+     * Automatización y construcción de flujos de trabajo ETL utilizando Power Query, SQL y Claude Code.
+     * Integración y consumo de datos provenientes de múltiples APIs para análisis de toma de decisiones.
+     * Apoyo directo al equipo en el diseño y puesta en marcha de modelos predictivos y de Machine Learning.
+     * Realización de encuestas de satisfacción con invitados en palcos VIP del Real Madrid los días de partido.
+
+3. h&k (HSI KITERIS S.L.) (Octubre 2025 - Febrero 2026):
+   - Puesto: Becario de Go-to-Market.
+   - Logros y tareas:
+     * Análisis de competencia en Inteligencia Artificial, Servicios de Gestión de Aplicaciones, Datos, Ciberseguridad y Power Platform (estudio de 10 a 15 competidores por informe).
+     * Colaboración en el diseño de propuestas de valor, servicios y mensajes para clientes junto al Director de Go-to-Market y responsables de líneas (Consultoría, Datos e IA, Desarrollo y Seguridad).
+     * Soporte al equipo de SDR en reuniones de clientes para una campaña de incentivos de Microsoft Azure, preparando preguntas de cualificación asistidas por IA.
+     * Elaboración de documentación operativa y tareas de limpieza, estructuración y enriquecimiento del CRM corporativo.
+
+PROYECTOS DESTACADOS:
+1. Dashboard de Power BI para cliente de Webtools (Profesional):
+   - Reto: Facilitar la interpretación y visualización de datos de un cliente mediante un dashboard interactivo.
+   - Desarrollo: Proceso ETL completo con extracción de datos crudos mediante DBeaver, importación y limpieza profunda en Power Query y desarrollo de visualizaciones en la vista de informe de Power BI.
+   - Tecnologías: DBeaver, Power Query, Power BI, ETL.
+   - Nota: No inventar métricas ni porcentajes de ahorro que no consten.
+
+2. Sistema Universitario de Recomendación y Ranking de Canciones (Académico - ESIC University):
+   - Reto: Recuperación de información sobre dataset musical, sistema de recomendación y estimación de ranking.
+   - Desarrollo: Implementación en Visual Studio Code con asistencia de OpenAI Codex; algoritmo de recomendación, componentes de recuperación de datos y modelo predictivo.
+   - Tecnologías: Python, scikit-learn, NumPy, pandas, Matplotlib, FastAPI, Visual Studio Code.
+   - Nota: Prototipo académico; no inventar métricas ficticias de precisión.
+
+FORMACIÓN ACADÉMICA:
+- Grado en International Business - ESIC University (Sep 2022 - Jun 2026). Finalizado.
+- Grado en International Business - Grenoble École de Management (Sep 2022 - Mar 2026). Finalizado (Doble titulación independiente).
+- Diploma Universitario en Data Science - ESIC University (Sep 2022 - Jun 2027 prevista). Cursando 4.º curso.
+- Bachillerato Internacional (IB) - Logos International School (Sep 2020 - May 2022), especialidad Matemáticas y Física Nivel Superior.
+- 4.º de ESO en Canadá - Stelly’s Secondary School (Sep 2019 - Jun 2020).
+
+IDIOMAS:
+- Español: Nativo.
+- Inglés: Bilingüe / Nivel C2 (Acreditado con Cambridge Certificate of Proficiency in English).
+- Francés: Nivel C1.
+
+HABILIDADES TÉCNICAS:
+- Lenguajes: Python, R, SQL, Java (básico).
+- BI & Visualización: Power BI, Power Query, Excel, Matplotlib.
+- Herramientas IA: Claude Code, Gemini, ChatGPT, Claude, Microsoft Copilot, OpenAI Codex.
+- Machine Learning & Librerías: scikit-learn, TensorFlow, pandas, NumPy, FastAPI.
+- Bases de Datos & Cloud: DBeaver, PostgreSQL, MySQL, Microsoft Azure, AWS.
+
+CERTIFICACIONES Y PREMIOS:
+- 2x Premio a la Excelencia Académica de ESIC University (Cursos 2023-2024 y 2024-2025).
+- Microsoft Certified: Azure AI Fundamentals y Azure Fundamentals.
+- Cambridge Certificate of Proficiency in English (C2).
+- Python for Data Science and Machine Learning Bootcamp (Udemy).
+- The Complete SQL Bootcamp: Go From Zero to Hero (Udemy).
+- PMI Project Management Ready™ (Project Management Institute).
+- Cybersecurity Fundamentals (Cisco / Cybrary).
+- Machine Learning Specialization (Coursera - En curso).
+
+Responde siempre en español a menos que el usuario pregunte expresamente en inglés o francés. Si preguntan en otro idioma, puedes responder en dicho idioma con cortesía y exactitud. Mantén formato limpio con viñetas cuando convenga.
+`;
+
+    /* ==========================================================================
+       2. GESTIÓN SEGURA DE API KEY EN LOCALSTORAGE
+       ========================================================================== */
+    const STORAGE_KEY = 'gemini_api_key_juan_cv';
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+    const clearApiKeyBtn = document.getElementById('clearApiKeyBtn');
+    const toggleApiKeyBtn = document.getElementById('toggleApiKeyBtn');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const apiStatusBadge = document.getElementById('apiStatusBadge');
+    const apiStatusText = document.getElementById('apiStatusText');
+
+    function updateApiStatusUI(key) {
+      if (key && key.trim().length > 10) {
+        apiStatusBadge.classList.add('active');
+        apiStatusText.textContent = 'API Key Configurada';
+        apiKeyInput.value = key;
+        clearApiKeyBtn.style.display = 'inline-flex';
+        saveApiKeyBtn.textContent = 'Actualizar Clave';
+      } else {
+        apiStatusBadge.classList.remove('active');
+        apiStatusText.textContent = 'Clave no configurada';
+        clearApiKeyBtn.style.display = 'none';
+        saveApiKeyBtn.textContent = 'Guardar Clave';
+      }
+    }
+
+    // Cargar clave inicial
+    const savedApiKey = localStorage.getItem(STORAGE_KEY) || '';
+    updateApiStatusUI(savedApiKey);
+
+    // Guardar clave
+    saveApiKeyBtn.addEventListener('click', () => {
+      const val = apiKeyInput.value.trim();
+      if (!val) {
+        alert('Por favor ingresa una clave de API de Gemini válida.');
+        return;
+      }
+      discoveredModel = null;
+      localStorage.setItem(STORAGE_KEY, val);
+      updateApiStatusUI(val);
+      showNotification('Clave de API guardada localmente de forma segura en tu navegador.');
+    });
+
+    // Borrar clave
+    clearApiKeyBtn.addEventListener('click', () => {
+      if (confirm('¿Deseas eliminar la clave guardada de tu navegador?')) {
+        discoveredModel = null;
+        localStorage.removeItem(STORAGE_KEY);
+        apiKeyInput.value = '';
+        updateApiStatusUI('');
+        showNotification('Clave de API eliminada.');
+      }
+    });
+
+    // Alternar visibilidad de contraseña
+    toggleApiKeyBtn.addEventListener('click', () => {
+      if (apiKeyInput.type === 'password') {
+        apiKeyInput.type = 'text';
+        eyeIcon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        `;
+      } else {
+        apiKeyInput.type = 'password';
+        eyeIcon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        `;
+      }
+    });
+
+    function showNotification(msg) {
+      const bubble = document.createElement('div');
+      bubble.style.position = 'fixed';
+      bubble.style.bottom = '20px';
+      bubble.style.right = '20px';
+      bubble.style.background = '#1e293b';
+      bubble.style.color = '#38bdf8';
+      bubble.style.border = '1px solid rgba(56, 189, 248, 0.4)';
+      bubble.style.padding = '12px 20px';
+      bubble.style.borderRadius = '10px';
+      bubble.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5)';
+      bubble.style.zIndex = '9999';
+      bubble.style.fontSize = '0.88rem';
+      bubble.textContent = msg;
+      document.body.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 3500);
+    }
+
+    /* ==========================================================================
+       3. CONVERSACIÓN Y LLAMADA A LA API DE GOOGLE GEMINI
+       ========================================================================== */
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+    // Historial para contexto multi-turno
+    let conversationHistory = [];
+
+    // Parse simple de Markdown a HTML seguro
+    function formatMarkdown(text) {
+      let escaped = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      // Negritas **texto**
+      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Cursivas *texto*
+      escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Código en línea `codigo`
+      escaped = escaped.replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px; font-family:monospace;">$1</code>');
+      
+      // Listas
+      const lines = escaped.split('\n');
+      let inList = false;
+      let result = [];
+
+      for (let line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+          if (!inList) {
+            result.push('<ul>');
+            inList = true;
+          }
+          result.push(`<li>${trimmed.substring(2)}</li>`);
+        } else {
+          if (inList) {
+            result.push('</ul>');
+            inList = false;
+          }
+          if (trimmed.length > 0) {
+            result.push(`<p>${line}</p>`);
+          }
+        }
+      }
+      if (inList) result.push('</ul>');
+
+      return result.join('');
+    }
+
+    function appendMessage(sender, text, isHtml = false) {
+      const row = document.createElement('div');
+      row.className = `message-row ${sender}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-avatar';
+      avatar.textContent = sender === 'user' ? 'Tú' : 'JA';
+
+      const content = document.createElement('div');
+      content.className = 'message-content';
+
+      if (isHtml) {
+        content.innerHTML = text;
+      } else {
+        content.innerHTML = formatMarkdown(text);
+      }
+
+      row.appendChild(avatar);
+      row.appendChild(content);
+      chatMessages.appendChild(row);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return row;
+    }
+
+    function appendTypingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'message-row bot';
+      row.id = 'typingIndicatorRow';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-avatar';
+      avatar.textContent = 'JA';
+
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      content.innerHTML = `
+        <div class="typing-indicator">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      `;
+
+      row.appendChild(avatar);
+      row.appendChild(content);
+      chatMessages.appendChild(row);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return row;
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('typingIndicatorRow');
+      if (el) el.remove();
+    }
+
+    /* Manejo Visual de Errores (Requisito 6) */
+    function displayChatError(title, detail, retryPrompt = null) {
+      removeTypingIndicator();
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'chat-alert-error';
+      
+      let html = `
+        <div class="error-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <strong>${title}</strong>
+        </div>
+        <div>${detail}</div>
+      `;
+
+      if (retryPrompt) {
+        html += `<button type="button" onclick="retryQuestion('${encodeURIComponent(retryPrompt)}')">Reintentar pregunta</button>`;
+      }
+
+      errorDiv.innerHTML = html;
+      chatMessages.appendChild(errorDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    window.retryQuestion = function(encodedPrompt) {
+      const prompt = decodeURIComponent(encodedPrompt);
+      sendMessage(prompt);
+    };
+
+    window.askSuggestion = function(text) {
+      chatInput.value = text;
+      chatForm.dispatchEvent(new Event('submit'));
+    };
+
+    let discoveredModel = null;
+
+    // Descubre dinámicamente los modelos activos y soportados por la API Key del usuario
+    async function discoverWorkingModels(apiKey) {
+      if (discoveredModel) return [discoveredModel];
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.models && Array.isArray(data.models)) {
+            const available = data.models
+              .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
+              .map(m => m.name.replace(/^models\//, ''));
+
+            const priorityList = [
+              'gemini-2.0-flash',
+              'gemini-2.5-flash',
+              'gemini-1.5-flash',
+              'gemini-1.5-flash-latest',
+              'gemini-1.5-flash-002',
+              'gemini-1.5-flash-001',
+              'gemini-2.0-flash-exp',
+              'gemini-1.5-pro',
+              'gemini-1.5-pro-latest',
+              'gemini-pro'
+            ];
+
+            const sorted = [];
+            for (const p of priorityList) {
+              if (available.includes(p)) sorted.push(p);
+            }
+            for (const a of available) {
+              if (!sorted.includes(a)) sorted.push(a);
+            }
+
+            if (sorted.length > 0) {
+              discoveredModel = sorted[0];
+              return sorted;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('No se pudo autodescubrir modelos:', e);
+      }
+
+      // Lista de respaldo priorizada
+      return [
+        'gemini-2.0-flash',
+        'gemini-1.5-flash',
+        'gemini-1.5-flash-latest',
+        'gemini-2.5-flash',
+        'gemini-1.5-pro'
+      ];
+    }
+
+    async function callGeminiAPI(userQuery, apiKey) {
+      const models = await discoverWorkingModels(apiKey);
+      let lastError = null;
+
+      const contentsPayload = [
+        ...conversationHistory,
+        {
+          role: 'user',
+          parts: [{ text: userQuery }]
+        }
+      ];
+
+      for (const model of models) {
+        const apiVersions = ['v1beta', 'v1'];
+
+        for (const apiVersion of apiVersions) {
+          const endpoint = `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:generateContent?key=${apiKey}`;
+
+          const requestBody = {
+            contents: contentsPayload,
+            systemInstruction: {
+              parts: [{ text: SYSTEM_INSTRUCTION }]
+            },
+            generationConfig: {
+              temperature: 0.3,
+              maxOutputTokens: 1000
+            }
+          };
+
+          try {
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(requestBody)
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.candidates && data.candidates.length > 0 && data.candidates[0].content?.parts?.[0]?.text) {
+                discoveredModel = model;
+                return data.candidates[0].content.parts[0].text;
+              } else {
+                throw new Error('La API respondió pero no generó candidatos de texto.');
+              }
+            }
+
+            const errorData = await response.json().catch(() => ({}));
+            const status = response.status;
+            const errorMsg = errorData.error?.message || response.statusText;
+
+            if (status === 400 || status === 403) {
+              if (errorMsg.toLowerCase().includes('api key') || errorMsg.toLowerCase().includes('credentials') || errorMsg.toLowerCase().includes('permission')) {
+                throw new Error(`[API_KEY_ERROR] ${errorMsg}`);
+              }
+            } else if (status === 429) {
+              throw new Error(`[QUOTA_ERROR] ${errorMsg}`);
+            }
+
+            lastError = new Error(`Error ${status}: ${errorMsg}`);
+          } catch (err) {
+            lastError = err;
+            if (err.message.startsWith('[API_KEY_ERROR]') || err.message.startsWith('[QUOTA_ERROR]')) {
+              throw err;
+            }
+          }
+        }
+      }
+
+      throw lastError || new Error('No se pudo establecer conexión con los servidores de Google Gemini. Verifica los permisos de tu API Key.');
+    }
+
+    async function sendMessage(textToSend) {
+      const userMessage = (textToSend || chatInput.value).trim();
+      if (!userMessage) return;
+
+      const apiKey = localStorage.getItem(STORAGE_KEY) || apiKeyInput.value.trim();
+
+      // Validación previa de API Key (Requisito 4 y 6)
+      if (!apiKey) {
+        appendMessage('user', userMessage);
+        chatInput.value = '';
+        displayChatError(
+          'API Key Requerida',
+          'Para interactuar con el asistente virtual necesitas ingresar tu Gemini API Key en la barra superior. Es gratuita y se almacena solo en tu navegador.',
+          userMessage
+        );
+        apiKeyInput.focus();
+        return;
+      }
+
+      // Render mensaje del usuario
+      appendMessage('user', userMessage);
+      chatInput.value = '';
+      chatInput.disabled = true;
+      sendMessageBtn.disabled = true;
+
+      // Mostrar animación de tipeo
+      appendTypingIndicator();
+
+      try {
+        const reply = await callGeminiAPI(userMessage, apiKey);
+        removeTypingIndicator();
+        appendMessage('bot', reply);
+
+        // Actualizar memoria conversacional
+        conversationHistory.push({ role: 'user', parts: [{ text: userMessage }] });
+        conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+
+        // Mantener historial controlado
+        if (conversationHistory.length > 10) {
+          conversationHistory = conversationHistory.slice(-10);
+        }
+
+      } catch (error) {
+        console.error('Error al invocar Gemini:', error);
+        removeTypingIndicator();
+
+        let title = 'Error de Comunicación';
+        let detail = 'Ocurrió un problema al conectar con Google Gemini. Verifica tu conexión de red.';
+
+        if (error.message.includes('[API_KEY_ERROR]')) {
+          title = 'API Key No Válida';
+          detail = 'La Gemini API Key ingresada no es válida o carece de permisos. Por favor verifica que la clave copiada desde Google AI Studio sea correcta.';
+        } else if (error.message.includes('[QUOTA_ERROR]')) {
+          title = 'Límite de Cuota Alcanzado';
+          detail = 'Se ha superado la cuota de peticiones permitida para esta API Key en Google AI Studio. Espera un momento o utiliza otra clave.';
+        } else if (error.message.includes('Failed to fetch')) {
+          title = 'Error de Red / Conexión';
+          detail = 'No se pudo contactar con los servidores de Google. Comprueba si tienes un bloqueador de peticiones o pérdida de conectividad.';
+        } else {
+          detail = error.message;
+        }
+
+        displayChatError(title, detail, userMessage);
+      } finally {
+        chatInput.disabled = false;
+        sendMessageBtn.disabled = false;
+        chatInput.focus();
+      }
+    }
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendMessage();
+    });
+
+    // Control de audio del avatar de bienvenida
+    const avatarVideo = document.getElementById('avatarVideo');
+    const unmuteBtn = document.getElementById('unmuteBtn');
+    if (avatarVideo && unmuteBtn) {
+      unmuteBtn.addEventListener('click', () => {
+        if (avatarVideo.muted) {
+          avatarVideo.muted = false;
+          unmuteBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+            <span>Silenciar</span>
+          `;
+        } else {
+          avatarVideo.muted = true;
+          unmuteBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <span>Activar sonido</span>
+          `;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
