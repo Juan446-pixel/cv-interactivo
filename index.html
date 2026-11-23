@@ -2341,10 +2341,10 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
     async function discoverWorkingModels(apiKey) {
       if (discoveredModel) return [discoveredModel];
       const preferred = [
-        'gemini-3.1-flash-lite',
         'gemini-2.5-flash-lite',
-        'gemini-3-flash-preview',
-        'gemini-2.5-flash'
+        'gemini-2.5-flash',
+        'gemini-3.1-flash-lite',
+        'gemini-3-flash-preview'
       ];
       const candidates = new Set();
       let pageToken = '';
@@ -2388,16 +2388,27 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
       if (!models.length) {
         throw new Error('Google no ha anunciado modelos Gemini Flash de texto compatibles para esta clave. Comprueba la consola y el proyecto asociado a la clave.');
       }
-      return models.slice(0, 8);
+      return models.slice(0, 4);
     }
 
+    // Un 503 suele ser una sobrecarga temporal del servidor, no una clave inválida.
+    // Reintentamos de forma limitada y cambiamos de modelo sin repetir indefinidamente.
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
     async function callGeminiAPI(userQuery, apiKey) {
-      const models = await discoverWorkingModels(apiKey);
+      const availableModels = await discoverWorkingModels(apiKey);
+      // Si el modelo que funcionó antes se satura, conservar alternativas.
+      const models = discoveredModel
+        ? [discoveredModel, ...availableModels.filter(m => m !== discoveredModel)]
+        : availableModels;
       const contentsPayload = [
         ...conversationHistory,
         { role: 'user', parts: [{ text: userQuery }] }
       ];
       const failures = [];
+      let sawQuota = false;
+      let sawOverload = false;
+
       for (const model of models) {
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
         const requestBody = {
@@ -2405,41 +2416,71 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
           generationConfig: { temperature: 0.3, maxOutputTokens: 500 }
         };
-        let response;
-        try {
-          response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-goog-api-key': apiKey
-            },
-            body: JSON.stringify(requestBody)
-          });
-        } catch (networkError) {
-          throw new Error(`Error de red al consultar Gemini: ${networkError.message}`);
+
+        // Dos intentos máximo por modelo. Retry solamente para 503/502/504.
+        for (let attempt = 0; attempt < 2; attempt++) {
+          let response;
+          try {
+            response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': apiKey
+              },
+              body: JSON.stringify(requestBody)
+            });
+          } catch (networkError) {
+            console.warn(`Fallo de red con ${model}:`, networkError);
+            failures.push(`${model}: fallo de red`);
+            break; // probar el siguiente modelo
+          }
+
+          const data = await response.json().catch(() => ({}));
+          if (response.ok) {
+            const reply = (data.candidates?.[0]?.content?.parts || [])
+              .map(part => part.text || '').join('').trim();
+            if (!reply) {
+              failures.push(`${model}: respuesta sin texto`);
+              break;
+            }
+            discoveredModel = model;
+            console.info(`Respuesta correcta con ${model}`);
+            return reply;
+          }
+
+          const detail = data.error?.message || response.statusText;
+          console.warn(`Gemini ${model}, intento ${attempt + 1}: HTTP ${response.status}`, detail);
+          // No mostrar la clave ni la URL con credenciales al usuario.
+          failures.push(`${model}: HTTP ${response.status} - ${detail}`);
+          if ([400, 401, 403].includes(response.status)) {
+            throw new Error(`[API_KEY_ERROR] ${model}: HTTP ${response.status} - ${detail}`);
+          }
+          if (response.status === 429) {
+            sawQuota = true;
+            break; // pasar al siguiente modelo: las cuotas pueden variar por modelo
+          }
+          if ([502, 503, 504].includes(response.status)) {
+            sawOverload = true;
+            if (attempt === 0) {
+              await sleep(1200 + Math.floor(Math.random() * 400));
+              continue;
+            }
+            break; // probar un modelo alternativo
+          }
+          if (response.status === 404) break;
+          // Otros errores no transitorios: no multiplicar llamadas.
+          throw new Error(`${model}: HTTP ${response.status} - ${detail}`);
         }
-        const data = await response.json().catch(() => ({}));
-        if (response.ok) {
-          const reply = (data.candidates?.[0]?.content?.parts || [])
-            .map(part => part.text || '').join('').trim();
-          if (!reply) throw new Error(`Gemini ${model} no devolvió texto; revisa los filtros de seguridad y la consola.`);
-          discoveredModel = model;
-          return reply;
-        }
-        const detail = data.error?.message || response.statusText;
-        console.warn(`Gemini ${model}: HTTP ${response.status}`, detail);
-        failures.push(`${model}: HTTP ${response.status} - ${detail}`);
-        if ([400, 401, 403].includes(response.status)) {
-          throw new Error(`[API_KEY_ERROR] ${failures[failures.length - 1]}`);
-        }
-        if (response.status === 429) {
-          throw new Error(`[QUOTA_ERROR] ${failures[failures.length - 1]}`);
-        }
-        // Intentar otro modelo solo ante modelo no encontrado o no habilitado.
-        if (response.status === 404) continue;
-        throw new Error(failures[failures.length - 1]);
       }
-      throw new Error(`Todos los modelos probaron error 404. ${failures.join(' | ').slice(0, 1400)}`);
+
+      const summary = failures.slice(-6).join(' | ').slice(0, 1250);
+      if (sawQuota && !sawOverload) {
+        throw new Error(`[QUOTA_ERROR] No hay cuota disponible en los modelos probados. ${summary}`);
+      }
+      if (sawOverload) {
+        throw new Error(`[OVERLOAD_ERROR] Los modelos de Gemini probados siguen saturados temporalmente. ${summary}`);
+      }
+      throw new Error(`No se encontró un modelo que respondiera correctamente. ${summary}`);
     }
 
     async function sendMessage(textToSend) {
@@ -2497,6 +2538,9 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
         } else if (error.message.includes('[QUOTA_ERROR]')) {
           title = 'Límite de Cuota Alcanzado';
           detail = 'Google ha devuelto un error 429 para este proyecto y modelo. Consulta el detalle en la consola (F12) y comprueba las cuotas de ese modelo en AI Studio. No se soluciona necesariamente creando otra clave.';
+        } else if (error.message.includes('[OVERLOAD_ERROR]')) {
+          title = 'Gemini temporalmente saturado';
+          detail = 'Google está experimentando alta demanda (HTTP 503). Hemos reintentado y probado modelos alternativos automáticamente. Prueba de nuevo más tarde.';
         } else if (error.message.includes('Failed to fetch')) {
           title = 'Error de Red / Conexión';
           detail = 'No se pudo contactar con los servidores de Google. Comprueba si tienes un bloqueador de peticiones o pérdida de conectividad.';
