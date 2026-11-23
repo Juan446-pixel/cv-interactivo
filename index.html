@@ -1737,7 +1737,7 @@
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
             <span>
-              Tu clave se guarda en el <code>localStorage</code> de este navegador y se envía directamente a Google al hacer consultas. No es un almacén seguro ante scripts maliciosos; utiliza una clave propia y restringida. 
+              
               Puedes obtener una clave gratuita en <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
             </span>
           </div>
@@ -2414,7 +2414,7 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
         const requestBody = {
           contents: contentsPayload,
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-          generationConfig: { temperature: 0.3, maxOutputTokens: 500 }
+          generationConfig: { temperature: 0.3 } // Sin límite artificial de tokens de salida; se aplica el máximo del modelo
         };
 
         // Dos intentos máximo por modelo. Retry solamente para 503/502/504.
