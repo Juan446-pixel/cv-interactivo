@@ -2336,35 +2336,59 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
 
     // Modelo de texto ligero, priorizado para este chatbot. No utilizar TTS.
     // La disponibilidad se consulta con la clave del visitante.
+    // Detectar modelos de texto realmente anunciados por Google.
+    // ListModels confirma compatibilidad declarada, no garantiza cuota o acceso efectivo.
     async function discoverWorkingModels(apiKey) {
       if (discoveredModel) return [discoveredModel];
-      const priorityList = [
+      const preferred = [
+        'gemini-3.1-flash-lite',
         'gemini-2.5-flash-lite',
+        'gemini-3-flash-preview',
         'gemini-2.5-flash'
       ];
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models', {
-        headers: { 'x-goog-api-key': apiKey }
-      });
-      if (!response.ok) {
+      const candidates = new Set();
+      let pageToken = '';
+      let pages = 0;
+      do {
+        const url = new URL('https://generativelanguage.googleapis.com/v1beta/models');
+        url.searchParams.set('pageSize', '1000');
+        if (pageToken) url.searchParams.set('pageToken', pageToken);
+        const response = await fetch(url.toString(), {
+          headers: { 'x-goog-api-key': apiKey }
+        });
         const payload = await response.json().catch(() => ({}));
-        const message = payload.error?.message || response.statusText;
-        if (response.status === 400 || response.status === 401 || response.status === 403) {
-          throw new Error(`[API_KEY_ERROR] ${message}`);
+        if (!response.ok) {
+          const message = payload.error?.message || response.statusText;
+          if ([400, 401, 403].includes(response.status)) {
+            throw new Error(`[API_KEY_ERROR] Consulta de modelos HTTP ${response.status}: ${message}`);
+          }
+          if (response.status === 429) {
+            throw new Error(`[QUOTA_ERROR] Consulta de modelos: ${message}`);
+          }
+          throw new Error(`Consulta de modelos HTTP ${response.status}: ${message}`);
         }
-        if (response.status === 429) {
-          throw new Error(`[QUOTA_ERROR] Falló la consulta de modelos: ${message}`);
+        for (const model of (payload.models || [])) {
+          const name = (model.name || '').replace(/^models\//, '');
+          const methods = model.supportedGenerationMethods || [];
+          if (methods.includes('generateContent') &&
+              /^gemini-/i.test(name) &&
+              /flash/i.test(name) &&
+              !/(tts|audio|image|embedding|live|native|computer|robotics)/i.test(name)) {
+            candidates.add(name);
+          }
         }
-        throw new Error(`No se pudo consultar la lista de modelos (${response.status}): ${message}`);
+        pageToken = payload.nextPageToken || '';
+        pages++;
+      } while (pageToken && pages < 10);
+      const models = [
+        ...preferred.filter(name => candidates.has(name)),
+        ...[...candidates].filter(name => !preferred.includes(name)).sort()
+      ];
+      console.info('Modelos Gemini compatibles encontrados:', models);
+      if (!models.length) {
+        throw new Error('Google no ha anunciado modelos Gemini Flash de texto compatibles para esta clave. Comprueba la consola y el proyecto asociado a la clave.');
       }
-      const payload = await response.json();
-      const available = new Set((payload.models || [])
-        .filter(model => model.supportedGenerationMethods?.includes('generateContent'))
-        .map(model => model.name.replace(/^models\//, '')));
-      const matches = priorityList.filter(model => available.has(model));
-      if (!matches.length) {
-        throw new Error('Tu proyecto no muestra ninguno de los modelos de texto compatibles configurados. Comprueba los modelos disponibles en Google AI Studio.');
-      }
-      return matches;
+      return models.slice(0, 8);
     }
 
     async function callGeminiAPI(userQuery, apiKey) {
@@ -2373,47 +2397,49 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
         ...conversationHistory,
         { role: 'user', parts: [{ text: userQuery }] }
       ];
-
+      const failures = [];
       for (const model of models) {
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
         const requestBody = {
           contents: contentsPayload,
           systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
           generationConfig: { temperature: 0.3, maxOutputTokens: 500 }
         };
-
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': apiKey
-          },
-          body: JSON.stringify(requestBody)
-        });
+        let response;
+        try {
+          response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-goog-api-key': apiKey
+            },
+            body: JSON.stringify(requestBody)
+          });
+        } catch (networkError) {
+          throw new Error(`Error de red al consultar Gemini: ${networkError.message}`);
+        }
         const data = await response.json().catch(() => ({}));
         if (response.ok) {
           const reply = (data.candidates?.[0]?.content?.parts || [])
             .map(part => part.text || '').join('').trim();
-          if (!reply) throw new Error('Gemini no ha devuelto texto. Revisa los filtros de seguridad o la respuesta del modelo.');
+          if (!reply) throw new Error(`Gemini ${model} no devolvió texto; revisa los filtros de seguridad y la consola.`);
           discoveredModel = model;
           return reply;
         }
-
         const detail = data.error?.message || response.statusText;
         console.warn(`Gemini ${model}: HTTP ${response.status}`, detail);
+        failures.push(`${model}: HTTP ${response.status} - ${detail}`);
         if ([400, 401, 403].includes(response.status)) {
-          throw new Error(`[API_KEY_ERROR] HTTP ${response.status}: ${detail}`);
+          throw new Error(`[API_KEY_ERROR] ${failures[failures.length - 1]}`);
         }
         if (response.status === 429) {
-          // No probar más modelos automáticamente: una cuota agotada no se
-          // arregla enviando más solicitudes. Mostrar la razón en pantalla.
-          throw new Error(`[QUOTA_ERROR] Modelo ${model}: ${detail}`);
+          throw new Error(`[QUOTA_ERROR] ${failures[failures.length - 1]}`);
         }
-        // 404 puede indicar que el modelo ya no está disponible para esta clave.
+        // Intentar otro modelo solo ante modelo no encontrado o no habilitado.
         if (response.status === 404) continue;
-        throw new Error(`Modelo ${model}, HTTP ${response.status}: ${detail}`);
+        throw new Error(failures[failures.length - 1]);
       }
-      throw new Error('No hay modelos configurados disponibles para esta clave. Consulta los modelos y cuotas en Google AI Studio.');
+      throw new Error(`Todos los modelos probaron error 404. ${failures.join(' | ').slice(0, 1400)}`);
     }
 
     async function sendMessage(textToSend) {
@@ -2467,7 +2493,7 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
 
         if (error.message.includes('[API_KEY_ERROR]')) {
           title = 'API Key No Válida';
-          detail = 'La Gemini API Key ingresada no es válida o carece de permisos. Por favor verifica que la clave copiada desde Google AI Studio sea correcta.';
+          detail = 'Google ha rechazado la solicitud: ' + error.message.replace('[API_KEY_ERROR]', '').trim();
         } else if (error.message.includes('[QUOTA_ERROR]')) {
           title = 'Límite de Cuota Alcanzado';
           detail = 'Google ha devuelto un error 429 para este proyecto y modelo. Consulta el detalle en la consola (F12) y comprueba las cuotas de ese modelo en AI Studio. No se soluciona necesariamente creando otra clave.';
