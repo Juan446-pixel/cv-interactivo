@@ -1737,7 +1737,7 @@
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
             <span>
-              Tu clave se almacena exclusivamente en el <code>localStorage</code> de tu navegador y nunca viaja a ningún servidor intermediario. 
+              Tu clave se guarda en el <code>localStorage</code> de este navegador y se envía directamente a Google al hacer consultas. No es un almacén seguro ante scripts maliciosos; utiliza una clave propia y restringida. 
               Puedes obtener una clave gratuita en <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
             </span>
           </div>
@@ -2138,7 +2138,7 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
       discoveredModel = null;
       localStorage.setItem(STORAGE_KEY, val);
       updateApiStatusUI(val);
-      showNotification('Clave de API guardada localmente de forma segura en tu navegador.');
+      showNotification('Clave guardada en este navegador. No compartas la clave ni la uses en dispositivos públicos.');
     });
 
     // Borrar clave
@@ -2334,131 +2334,86 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
 
     let discoveredModel = null;
 
-    // Descubre dinámicamente los modelos activos y soportados por la API Key del usuario
+    // Modelo de texto ligero, priorizado para este chatbot. No utilizar TTS.
+    // La disponibilidad se consulta con la clave del visitante.
     async function discoverWorkingModels(apiKey) {
       if (discoveredModel) return [discoveredModel];
-
-      try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.models && Array.isArray(data.models)) {
-            const available = data.models
-              .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
-              .map(m => m.name.replace(/^models\//, ''));
-
-            const priorityList = [
-              'gemini-2.0-flash',
-              'gemini-2.5-flash',
-              'gemini-1.5-flash',
-              'gemini-1.5-flash-latest',
-              'gemini-1.5-flash-002',
-              'gemini-1.5-flash-001',
-              'gemini-2.0-flash-exp',
-              'gemini-1.5-pro',
-              'gemini-1.5-pro-latest',
-              'gemini-pro'
-            ];
-
-            const sorted = [];
-            for (const p of priorityList) {
-              if (available.includes(p)) sorted.push(p);
-            }
-            for (const a of available) {
-              if (!sorted.includes(a)) sorted.push(a);
-            }
-
-            if (sorted.length > 0) {
-              discoveredModel = sorted[0];
-              return sorted;
-            }
-          }
-        }
-      } catch (e) {
-        console.warn('No se pudo autodescubrir modelos:', e);
-      }
-
-      // Lista de respaldo priorizada
-      return [
-        'gemini-2.0-flash',
-        'gemini-1.5-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-2.5-flash',
-        'gemini-1.5-pro'
+      const priorityList = [
+        'gemini-2.5-flash-lite',
+        'gemini-2.5-flash'
       ];
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models', {
+        headers: { 'x-goog-api-key': apiKey }
+      });
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        const message = payload.error?.message || response.statusText;
+        if (response.status === 400 || response.status === 401 || response.status === 403) {
+          throw new Error(`[API_KEY_ERROR] ${message}`);
+        }
+        if (response.status === 429) {
+          throw new Error(`[QUOTA_ERROR] Falló la consulta de modelos: ${message}`);
+        }
+        throw new Error(`No se pudo consultar la lista de modelos (${response.status}): ${message}`);
+      }
+      const payload = await response.json();
+      const available = new Set((payload.models || [])
+        .filter(model => model.supportedGenerationMethods?.includes('generateContent'))
+        .map(model => model.name.replace(/^models\//, '')));
+      const matches = priorityList.filter(model => available.has(model));
+      if (!matches.length) {
+        throw new Error('Tu proyecto no muestra ninguno de los modelos de texto compatibles configurados. Comprueba los modelos disponibles en Google AI Studio.');
+      }
+      return matches;
     }
 
     async function callGeminiAPI(userQuery, apiKey) {
       const models = await discoverWorkingModels(apiKey);
-      let lastError = null;
-
       const contentsPayload = [
         ...conversationHistory,
-        {
-          role: 'user',
-          parts: [{ text: userQuery }]
-        }
+        { role: 'user', parts: [{ text: userQuery }] }
       ];
 
       for (const model of models) {
-        const apiVersions = ['v1beta', 'v1'];
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+        const requestBody = {
+          contents: contentsPayload,
+          systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+          generationConfig: { temperature: 0.3, maxOutputTokens: 500 }
+        };
 
-        for (const apiVersion of apiVersions) {
-          const endpoint = `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:generateContent?key=${apiKey}`;
-
-          const requestBody = {
-            contents: contentsPayload,
-            systemInstruction: {
-              parts: [{ text: SYSTEM_INSTRUCTION }]
-            },
-            generationConfig: {
-              temperature: 0.3,
-              maxOutputTokens: 1000
-            }
-          };
-
-          try {
-            const response = await fetch(endpoint, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(requestBody)
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              if (data.candidates && data.candidates.length > 0 && data.candidates[0].content?.parts?.[0]?.text) {
-                discoveredModel = model;
-                return data.candidates[0].content.parts[0].text;
-              } else {
-                throw new Error('La API respondió pero no generó candidatos de texto.');
-              }
-            }
-
-            const errorData = await response.json().catch(() => ({}));
-            const status = response.status;
-            const errorMsg = errorData.error?.message || response.statusText;
-
-            if (status === 400 || status === 403) {
-              if (errorMsg.toLowerCase().includes('api key') || errorMsg.toLowerCase().includes('credentials') || errorMsg.toLowerCase().includes('permission')) {
-                throw new Error(`[API_KEY_ERROR] ${errorMsg}`);
-              }
-            } else if (status === 429) {
-              throw new Error(`[QUOTA_ERROR] ${errorMsg}`);
-            }
-
-            lastError = new Error(`Error ${status}: ${errorMsg}`);
-          } catch (err) {
-            lastError = err;
-            if (err.message.startsWith('[API_KEY_ERROR]') || err.message.startsWith('[QUOTA_ERROR]')) {
-              throw err;
-            }
-          }
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+          },
+          body: JSON.stringify(requestBody)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (response.ok) {
+          const reply = (data.candidates?.[0]?.content?.parts || [])
+            .map(part => part.text || '').join('').trim();
+          if (!reply) throw new Error('Gemini no ha devuelto texto. Revisa los filtros de seguridad o la respuesta del modelo.');
+          discoveredModel = model;
+          return reply;
         }
-      }
 
-      throw lastError || new Error('No se pudo establecer conexión con los servidores de Google Gemini. Verifica los permisos de tu API Key.');
+        const detail = data.error?.message || response.statusText;
+        console.warn(`Gemini ${model}: HTTP ${response.status}`, detail);
+        if ([400, 401, 403].includes(response.status)) {
+          throw new Error(`[API_KEY_ERROR] HTTP ${response.status}: ${detail}`);
+        }
+        if (response.status === 429) {
+          // No probar más modelos automáticamente: una cuota agotada no se
+          // arregla enviando más solicitudes. Mostrar la razón en pantalla.
+          throw new Error(`[QUOTA_ERROR] Modelo ${model}: ${detail}`);
+        }
+        // 404 puede indicar que el modelo ya no está disponible para esta clave.
+        if (response.status === 404) continue;
+        throw new Error(`Modelo ${model}, HTTP ${response.status}: ${detail}`);
+      }
+      throw new Error('No hay modelos configurados disponibles para esta clave. Consulta los modelos y cuotas en Google AI Studio.');
     }
 
     async function sendMessage(textToSend) {
@@ -2515,7 +2470,7 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
           detail = 'La Gemini API Key ingresada no es válida o carece de permisos. Por favor verifica que la clave copiada desde Google AI Studio sea correcta.';
         } else if (error.message.includes('[QUOTA_ERROR]')) {
           title = 'Límite de Cuota Alcanzado';
-          detail = 'Se ha superado la cuota de peticiones permitida para esta API Key en Google AI Studio. Espera un momento o utiliza otra clave.';
+          detail = 'Google ha devuelto un error 429 para este proyecto y modelo. Consulta el detalle en la consola (F12) y comprueba las cuotas de ese modelo en AI Studio. No se soluciona necesariamente creando otra clave.';
         } else if (error.message.includes('Failed to fetch')) {
           title = 'Error de Red / Conexión';
           detail = 'No se pudo contactar con los servidores de Google. Comprueba si tienes un bloqueador de peticiones o pérdida de conectividad.';
