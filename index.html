@@ -620,11 +620,160 @@
       max-width: 650px;
     }
 
-    /* Video Cards Section (Requisito 2) */
+    /* Video Cards Section (División Vertical de Vídeos en Secciones) */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
+    }
+
+    .video-vertical-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .video-section-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      padding: 24px;
+    }
+
+    .video-section-item:hover {
+      border-color: rgba(99, 102, 241, 0.45);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .video-section-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 920px) {
+      .video-section-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .video-section-number {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .video-section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .video-section-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .video-points-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .video-points-list li {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .video-points-list li svg {
+      flex-shrink: 0;
+      color: var(--accent-primary);
+      margin-top: 3px;
+    }
+
+    /* Academic Excellence Award Highlight Box */
+    .excellence-award-callout {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .excellence-award-callout::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #f59e0b, #fbbf24);
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+    }
+
+    .award-callout-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .award-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .award-callout-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #fbbf24;
+      line-height: 1.3;
+    }
+
+    .award-callout-text {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .award-callout-text strong {
+      color: var(--text-primary);
     }
 
     .video-card {
@@ -1288,12 +1437,12 @@
               Tu navegador no soporta la reproducción de vídeo HTML5.
             </video>
             <div class="audio-notice">
-              <button type="button" class="btn-unmute" id="unmuteBtn">
+              <button type="button" class="btn-unmute" id="unmuteBtn" title="Control de audio">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                   <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                 </svg>
-                <span>Activar sonido</span>
+                <span>Silenciar</span>
               </button>
             </div>
           </div>
@@ -1394,7 +1543,7 @@
               <div class="label">Idiomas</div>
               <div class="val">Inglés C2 · FR C1</div>
             </div>
-            <div class="metric-box">
+            <div class="metric-box" title="Premios a la Excelencia Académica ESIC: Muestran iniciativa constante por destacar tanto en trabajos en grupo como en exámenes, y demuestran una excelente capacidad de organización.">
               <div class="label">Premios</div>
               <div class="val">2x Excelencia ESIC</div>
             </div>
@@ -1412,71 +1561,124 @@
     </div>
   </section>
 
-  <!-- Video Section (Requisito 2: 3 Tarjetas de Vídeo para archivos locales .mp4) -->
+  <!-- Video Section: 3 Secciones Verticales (Presentación Ejecutiva, Proyecto y Habilidades) -->
   <section id="videos">
     <div class="container">
       <div class="section-header">
-        <div class="section-eyebrow">Multimedia & Presentaciones</div>
+        <div class="section-eyebrow">Multimedia & Presentaciones Ejecutivas</div>
         <h2 class="section-title">Videopresentaciones</h2>
         <p class="section-desc">
-          Conoce en profundidad mi perfil, mi metodología de trabajo en proyectos de datos y mis capacidades técnicas a través de estos 3 vídeos breves.
+          Conoce en profundidad mi perfil, mi metodología en proyectos de datos e IA y mis capacidades técnicas a través de estas 3 secciones audiovisuales organizadas verticalmente.
         </p>
       </div>
 
-      <div class="video-grid">
-        <!-- Video 1: pitch.mp4 -->
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/pitch.mp4" type="video/mp4">
-              <source src="pitch.mp4" type="video/mp4">
-              Tu navegador no soporta la reproducción de vídeo HTML5.
-            </video>
-          </div>
-          <div class="video-body">
-            <span class="video-badge">Presentación Ejecutiva</span>
-            <h3 class="video-title">Elevator Pitch</h3>
-            <p class="video-description">
-              Síntesis sobre mi perfil profesional, mi visión estratégica uniendo International Business con Data Science y el valor aportado en consultoría de Inteligencia Artificial.
-            </p>
+      <div class="video-vertical-list">
+        
+        <!-- Sección 1: Presentación Ejecutiva (Elevator Pitch) -->
+        <div class="video-section-item" id="video-pitch">
+          <div class="video-section-grid">
+            <div class="video-wrapper">
+              <span class="video-file-tag">videos/pitch.mp4</span>
+              <video controls preload="metadata">
+                <source src="videos/pitch.mp4" type="video/mp4">
+                <source src="pitch.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de vídeo HTML5.
+              </video>
+            </div>
+            <div class="video-body">
+              <span class="video-section-number">Sección 1 · Presentación Ejecutiva</span>
+              <h3 class="video-section-title">Elevator Pitch: Visión Estratégica & Liderazgo en IA</h3>
+              <p class="video-section-desc">
+                Síntesis directa sobre mi perfil profesional, conectando mi formación internacional en International Business con la especialización analítica en Data Science, y el valor diferencial que aporto en proyectos y consultoría de Inteligencia Artificial en Deloitte.
+              </p>
+              <ul class="video-points-list">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Visión de Negocio & IA:</strong> Traducción de objetivos corporativos en arquitecturas analíticas viables.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Trayectoria Internacional:</strong> Experiencia académica en España, Francia y Canadá con mentalidad global.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Impacto Cuantitativo:</strong> Automatización de procesos, gobernanza y soporte a la toma de decisiones.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <!-- Video 2: proyecto.mp4 -->
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/proyecto.mp4" type="video/mp4">
-              <source src="proyecto.mp4" type="video/mp4">
-              Tu navegador no soporta la reproducción de vídeo HTML5.
-            </video>
-          </div>
-          <div class="video-body">
-            <span class="video-badge">Caso de Estudio</span>
-            <h3 class="video-title">Demostración de Proyecto</h3>
-            <p class="video-description">
-              Recorrido práctico por la construcción de pipelines ETL, extracción de datos vía APIs y DBeaver, modelado en Power Query y dashboards analíticos en Power BI.
-            </p>
+        <!-- Sección 2: Demostración de Proyecto (Caso de Estudio) -->
+        <div class="video-section-item" id="video-proyecto">
+          <div class="video-section-grid">
+            <div class="video-wrapper">
+              <span class="video-file-tag">videos/proyecto.mp4</span>
+              <video controls preload="metadata">
+                <source src="videos/proyecto.mp4" type="video/mp4">
+                <source src="proyecto.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de vídeo HTML5.
+              </video>
+            </div>
+            <div class="video-body">
+              <span class="video-section-number">Sección 2 · Caso de Estudio Técnico</span>
+              <h3 class="video-section-title">Demostración de Proyecto: Pipelines ETL & Analítica</h3>
+              <p class="video-section-desc">
+                Recorrido práctico y demostración técnica sobre la construcción de flujos de datos automatizados (ETL), extracción de información relacional mediante SQL y DBeaver, modelado robusto de datos en Power Query y diseño de cuadros de mando analíticos en Power BI.
+              </p>
+              <ul class="video-points-list">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Pipelines de Datos:</strong> Automatización integral de extracción, transformación y limpieza de datos.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Modelado Analítico:</strong> Esquemas en estrella y lógica DAX para cálculo de métricas críticas.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Inteligencia de Negocio:</strong> Dashboards interactivos orientados a usuarios ejecutivos y operativos.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <!-- Video 3: habilidades.mp4 -->
-        <div class="video-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata">
-              <source src="videos/habilidades.mp4" type="video/mp4">
-              <source src="habilidades.mp4" type="video/mp4">
-              Tu navegador no soporta la reproducción de vídeo HTML5.
-            </video>
-          </div>
-          <div class="video-body">
-            <span class="video-badge">Stack Técnico + Soft Skills</span>
-            <h3 class="video-title">Habilidades Técnicas & Soft Skills</h3>
-            <p class="video-description">
-              Exposición de mis competencias técnicas en Python, SQL, Machine Learning y herramientas de IA aplicada. Además, haber estudiado en España, Francia y Canadá me ha permitido desenvolverme en entornos internacionales; soy bilingüe en inglés y tengo un nivel C1 de francés.
-            </p>
+        <!-- Sección 3: Habilidades Técnicas & Soft Skills -->
+        <div class="video-section-item" id="video-habilidades">
+          <div class="video-section-grid">
+            <div class="video-wrapper">
+              <span class="video-file-tag">videos/habilidades.mp4</span>
+              <video controls preload="metadata">
+                <source src="videos/habilidades.mp4" type="video/mp4">
+                <source src="habilidades.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de vídeo HTML5.
+              </video>
+            </div>
+            <div class="video-body">
+              <span class="video-section-number">Sección 3 · Competencias & Idiomas</span>
+              <h3 class="video-section-title">Habilidades Técnicas, Stack de IA & Soft Skills</h3>
+              <p class="video-section-desc">
+                Exposición en profundidad de mi stack tecnológico en Python, SQL, Machine Learning y herramientas de IA aplicada, combinada con las competencias interpersonales clave y la versatilidad de trabajar en entornos internacionales exigentes.
+              </p>
+              <ul class="video-points-list">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Stack Técnico:</strong> Python, SQL, R, scikit-learn, Power BI, Azure, DBeaver y Power Query.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Idiomas:</strong> Español (Nativo), Inglés (C2 Bilingüe - Cambridge Proficiency), Francés (C1 Fluido).</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Soft Skills:</strong> Alta capacidad de organización, iniciativa constante, comunicación y resolución analítica.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -1770,6 +1972,20 @@
             <li>📜 <strong>Power BI</strong> (ESIC University)</li>
             <li>⏳ <em>Machine Learning Specialization</em> (Coursera - En curso)</li>
           </ul>
+
+          <!-- Explicación Explícita: Por qué son importantes los Premios a la Excelencia Académica -->
+          <div class="excellence-award-callout">
+            <div class="award-callout-header">
+              <div class="award-icon-box">🏆</div>
+              <div>
+                <h5 class="award-callout-title">Importancia de los Premios a la Excelencia Académica</h5>
+                <span style="font-size: 0.76rem; color: #f59e0b; font-weight: 600; text-transform: uppercase;">Iniciativa en Grupo &bull; Rendimiento Individual &bull; Organización</span>
+              </div>
+            </div>
+            <p class="award-callout-text">
+              <strong>¿Por qué son importantes estos premios?</strong> Estos reconocimientos son de gran relevancia porque <strong>muestran una iniciativa constante por destacar tanto en los trabajos en grupo como en los exámenes individuales</strong>, reflejando compromiso y capacidad de tracción en equipo. Asimismo, <strong>demuestran que sé organizarme extraordinariamente bien</strong>, siendo capaz de mantener el máximo nivel de rigor y excelencia académica mientras compatibilizo un doble grado internacional (ESIC y GEM), estudios de Data Science y proyectos profesionales de alto impacto.
+            </p>
+          </div>
         </div>
 
       </div>
@@ -1869,6 +2085,7 @@ HABILIDADES TÉCNICAS:
 
 CERTIFICACIONES Y PREMIOS:
 - 2x Premio a la Excelencia Académica de ESIC University (Cursos 2023-2024 y 2024-2025).
+  * IMPORTANCIA EXPLÍCITA: Si te preguntan por estos premios o su significado, explica explícitamente que son muy importantes porque muestran una iniciativa constante por destacar tanto en los trabajos en grupo como en los exámenes individuales, y demuestran que Juan sabe organizarse extraordinariamente bien para compaginar la alta exigencia de una doble titulación internacional y Data Science con proyectos prácticos.
 - Microsoft Certified: Azure AI Fundamentals y Azure Fundamentals.
 - Cambridge Certificate of Proficiency in English (C2).
 - Python for Data Science and Machine Learning Bootcamp (Udemy).
@@ -2319,32 +2536,78 @@ Responde siempre en español a menos que el usuario pregunte expresamente en ing
       sendMessage();
     });
 
-    // Control de audio del avatar de bienvenida
+    // Control de audio del avatar de bienvenida (Con sonido por defecto)
     const avatarVideo = document.getElementById('avatarVideo');
     const unmuteBtn = document.getElementById('unmuteBtn');
-    if (avatarVideo && unmuteBtn) {
-      unmuteBtn.addEventListener('click', () => {
-        if (avatarVideo.muted) {
-          avatarVideo.muted = false;
+    if (avatarVideo) {
+      avatarVideo.muted = false;
+      avatarVideo.volume = 1.0;
+
+      function updateAudioBtnUI(isMuted) {
+        if (!unmuteBtn) return;
+        if (isMuted) {
           unmuteBtn.innerHTML = `
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <line x1="23" y1="9" x2="17" y2="15"></line>
               <line x1="17" y1="9" x2="23" y2="15"></line>
             </svg>
-            <span>Silenciar</span>
+            <span>Activar sonido</span>
           `;
+          unmuteBtn.title = "Activar sonido";
         } else {
-          avatarVideo.muted = true;
           unmuteBtn.innerHTML = `
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             </svg>
-            <span>Activar sonido</span>
+            <span>Silenciar</span>
           `;
+          unmuteBtn.title = "Silenciar audio";
         }
-      });
+      }
+
+      // Estado inicial: botón siempre en "Silenciar" por defecto
+      updateAudioBtnUI(false);
+
+      // Reproducción automática directa al abrir la página:
+      // 1. Iniciamos reproducción inmediata
+      const playPromise = avatarVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Intentar audio directo
+          avatarVideo.muted = false;
+          avatarVideo.volume = 1.0;
+          updateAudioBtnUI(false);
+        }).catch(() => {
+          // Si el navegador bloquea audio sin gesto previo, reproducir inmediatamente (sin pausar)
+          avatarVideo.muted = true;
+          avatarVideo.play().catch(() => {});
+          // Mantener el botón en "Silenciar" por defecto tal como se solicitó
+          updateAudioBtnUI(false);
+
+          // En cuanto el usuario interactúe (clic, toque o scroll/tecla), activar sonido sin pausar
+          const unlockSoundOnGesture = () => {
+            avatarVideo.muted = false;
+            avatarVideo.volume = 1.0;
+            updateAudioBtnUI(false);
+            ['click', 'keydown', 'touchstart'].forEach(evt => {
+              document.removeEventListener(evt, unlockSoundOnGesture);
+            });
+          };
+          ['click', 'keydown', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, unlockSoundOnGesture, { once: true });
+          });
+        });
+      }
+
+      if (unmuteBtn) {
+        unmuteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          avatarVideo.muted = !avatarVideo.muted;
+          updateAudioBtnUI(avatarVideo.muted);
+        });
+      }
     }
   </script>
 </body>
